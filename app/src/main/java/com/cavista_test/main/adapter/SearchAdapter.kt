@@ -29,6 +29,9 @@ class SearchAdapter : ListAdapter<Data, SearchAdapter.ViewHolder>(SearchItemDiff
 
         fun bind(dataItem: Data) {
 
+            /**
+             * Show Images when data is non null
+             **/
             dataItem.images?.let {
                 if (it.isNotEmpty()) {
                     binding.imageItem = dataItem.images[0]
@@ -42,7 +45,9 @@ class SearchAdapter : ListAdapter<Data, SearchAdapter.ViewHolder>(SearchItemDiff
                 if (dataItem.images == null)
                 {
                    Toast.makeText(itemView.context,"No Preview Available!",Toast.LENGTH_SHORT).show()
-                }else{
+                }else {
+
+                    // Intent to showing image details
                     val intent = Intent(itemView.context, ImageDetailsActivity::class.java)
                     intent.putExtra("dataItem", dataItem)
                     itemView.context.startActivity(intent)

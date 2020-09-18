@@ -45,7 +45,9 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupUI() {
 
-        // Show All Images
+        /**
+         * Show All Images using Recyclerview
+         * **/
         showData()
         binding.etxSearch.setOnEditorActionListener(TextView.OnEditorActionListener { v, actionId, event ->
             if (actionId == EditorInfo.IME_ACTION_SEARCH) {
@@ -61,13 +63,15 @@ class MainActivity : AppCompatActivity() {
             false
         })
 
+        /**
+         * Click Listener for search image
+         * **/
         binding.imgSearch.setOnClickListener {
             hideKeyBoard()
             val searchText = binding.etxSearch.text.toString()
 
-            if (searchText != "") {
-
-                // Get Image Data
+            // Check wheather entered value in empty or not
+            if (searchText.isNotEmpty()) {
                 setupObservers(searchText)
             } else {
                 binding.etxSearch.error = "Please enter valid text"
@@ -75,15 +79,20 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Show All Images using Recyclerview
+     * **/
     private fun showData() {
-
-        // Recyler view to show Images
         val layoutManager = GridLayoutManager(this, 4, RecyclerView.VERTICAL, false)
         binding.rvImageSearch.layoutManager = layoutManager
         searchAdapter = SearchAdapter()
         binding.rvImageSearch.adapter = searchAdapter
     }
 
+    /**
+     * Get Images Data Regarding using API
+     * q = searchText
+     * **/
     private fun setupObservers(searchText: String) {
         viewModel.getSearchData(searchText).observe(this, Observer {
             it?.let { resource ->
@@ -130,10 +139,16 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
+    /**
+     * Parse Response and pass data to Recycler View Adapter
+     * **/
     private fun retrieveList(response: SearchData) {
         searchAdapter.submitList(response.data)
     }
 
+    /**
+     * Show Keyboard
+     * **/
     private fun showKeyBoard() {
         Handler().post {
             val inputMethodManager =
@@ -146,6 +161,9 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Hide Keyboard
+     * **/
     private fun hideKeyBoard() {
         val imm =
                 this.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager

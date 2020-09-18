@@ -49,11 +49,7 @@ class ImageDetailsActivity : AppCompatActivity() {
     @SuppressLint("SimpleDateFormat")
     private fun setupUI() {
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
-        // Show Image Details
         showDetails()
-
-        // Show List of Comments
         showComments()
 
         binding.btnSubmit.setOnClickListener {
@@ -82,9 +78,10 @@ class ImageDetailsActivity : AppCompatActivity() {
         }
     }
 
+    /**
+     * Show Image in full size got from dataItem
+     * **/
     private fun showDetails() {
-
-        // Recyler View For Showing Images
         val layoutManager = LinearLayoutManager(this, RecyclerView.HORIZONTAL, false)
         binding.rvImageDetail.layoutManager = layoutManager
         binding.rvImageDetail.isNestedScrollingEnabled = true
@@ -93,8 +90,10 @@ class ImageDetailsActivity : AppCompatActivity() {
         imageAdapter.submitList(dataItem?.images)
     }
 
+    /**
+     * Fetch Comments from DB and show list of comments
+     **/
     private fun showComments() {
-
         dataItem?.let {
             val layoutManager = LinearLayoutManager(this, RecyclerView.VERTICAL, false)
             binding.rvComments.layoutManager = layoutManager
@@ -107,6 +106,9 @@ class ImageDetailsActivity : AppCompatActivity() {
         setupObservers()
     }
 
+    /**
+     * Observers for getting comments from DB
+     **/
     private fun setupObservers() {
         viewModel.getCommentsByPostId(dataItem?.id).observe(this, androidx.lifecycle.Observer {
             it.let { resource ->
@@ -125,6 +127,9 @@ class ImageDetailsActivity : AppCompatActivity() {
         })
     }
 
+    /**
+     * HideKeyboard
+     **/
     private fun hideKeyBoard() {
         val imm =
                 this.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
@@ -135,6 +140,9 @@ class ImageDetailsActivity : AppCompatActivity() {
         imm.hideSoftInputFromWindow(view.windowToken, 0)
     }
 
+    /**
+     * Back Pressed Event call
+     **/
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
 
         if (item.itemId == android.R.id.home) {
