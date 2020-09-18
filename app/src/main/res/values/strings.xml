@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Cavista_test</string>
+    <string name="write_something">Write Something …</string>
+    <string name="oops_no_internet">OOPS NO INTERNET</string>
+    <string name="please_check_your_network_connection">Please Check Your Internet Connection</string>
+    <string name="try_again">Try Again …</string>
+    <string name="oops_something_went_wrong">OOPS SOMETHING WENT WRONG</string>
+    <string name="comment_empty_msg">No Comments Found !</string>
+    <string name="submit">Submit</string>
+    <string name="imageview88">imageView88</string>
+    <string name="imageview8">imageView8</string>
+</resources>
